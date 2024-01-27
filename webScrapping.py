@@ -30,6 +30,10 @@ subtext = soup.select('.subtext')
 # print(votes[0].get('id'))
 # print(links)
 # print(links.__dir__())
+
+def sort_stories_by_votes(hnlist):
+    return sorted(hnlist, key=lambda k:k['votes'], reverse=1)
+
 def create_custom_web(links, subtext):
     hn = []
     for idx, item in enumerate(links):
@@ -39,10 +43,10 @@ def create_custom_web(links, subtext):
         vote = subtext[idx].select('.score')
         # print(vote[0].getText())
         if len(vote):
-
             points = int(vote[0].getText().replace(' points', ''))
-            hn.append({'title': title, 'link': href, 'votes': points})
-    return hn
+            if points > 99: #extracting the 100+ votes obtained news links
+                hn.append({'title': title, 'link': href, 'votes': points})
+    return sort_stories_by_votes(hn)
 
 print(create_custom_web(links, subtext))
 # print(links[0])
