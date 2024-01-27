@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import time
+import pprint
 
 #to access the web url
 t1 = time.time()
@@ -39,15 +40,16 @@ def create_custom_web(links, subtext):
         # print(vote[0].getText())
         if len(vote):
 
-            points = int(votes[0].getText().replace(' points', ''))
-            hn.append({'title': title, 'link': href, 'points': points})
+            points = int(vote[0].getText().replace(' points', ''))
+            hn.append({'title': title, 'link': href, 'votes': points})
     return hn
 
 print(create_custom_web(links, subtext))
 # print(links[0])
 # print(soup.get('href'))
-x = soup.find('a')
+# x = soup.find('a')
 # print(x.get('href'))
+pprint.pprint(create_custom_web(links, subtext))
 
 
 
